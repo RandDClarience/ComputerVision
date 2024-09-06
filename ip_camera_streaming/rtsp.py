@@ -10,7 +10,7 @@ class RTSPStream(QMainWindow):
         self.setWindowTitle("Multi-Camera Stream")
         self.setGeometry(100, 100, 800, 600)
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
-
+        self.showMinimized()
         # Create layout
         central_widget = QWidget(self)
         self.setCentralWidget(central_widget)
@@ -85,5 +85,5 @@ class RTSPStream(QMainWindow):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = RTSPStream()
-    window.show()
+    window.showMinimized()    
     sys.exit(app.exec())
