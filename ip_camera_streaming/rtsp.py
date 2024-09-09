@@ -9,11 +9,14 @@ class RTSPStream(QMainWindow):
     def __init__(self, config):
         super().__init__()
 
-        # Set window size to fit 1280x800 display
-        self.setWindowTitle("Multi-Camera Stream (RTSP)")
-        self.setGeometry(100, 100, 1280, 800)
-        self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
-        self.showMinimized()
+        # Extract configuration settings
+        self.screen_size = config.get("screen_size", [1280, 800])
+        self.top_camera_size = tuple(config.get("top_camera_size", [640, 360]))
+        self.bottom_camera_size = tuple(config.get("bottom_camera_size", [1280, 720]))
+
+        # Set window flags for a borderless window
+        self.setWindowFlags(Qt.WindowType.FramelessWindowHint | Qt.WindowType.WindowStaysOnTopHint)
+        self.setWindowState(Qt.WindowState.WindowFullScreen)  # Fullscreen mode
 
         # Create layout
         central_widget = QWidget(self)
@@ -51,14 +54,8 @@ class RTSPStream(QMainWindow):
         main_layout.addLayout(camera_layout)
 
         # Set QLabel sizes
-        self.top_camera_size = (640, 360)  # Size for top cameras maintaining 16:9 aspect ratio
-        self.bottom_camera_size = (1280, 720)  # Size for bottom camera with fixed 720p resolution
-
-        # Set top cameras size
         self.camera_labels[0].setFixedSize(*self.top_camera_size)
         self.camera_labels[1].setFixedSize(*self.top_camera_size)
-
-        # Set bottom camera size
         self.camera_labels[2].setFixedSize(*self.bottom_camera_size)
 
         # Set up RTSP streams from config
@@ -79,6 +76,9 @@ class RTSPStream(QMainWindow):
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_frames)
         self.timer.start(30)
+
+        # Start minimized
+        self.showMinimized()
 
     def update_frames(self):
         for i, cap in enumerate(self.caps):
@@ -128,5 +128,5 @@ if __name__ == '__main__':
 
     app = QApplication(sys.argv)
     window = RTSPStream(config)
-    window.show()    
+    window.show()  # Ensure window is shown
     sys.exit(app.exec())

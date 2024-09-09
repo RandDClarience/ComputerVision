@@ -1,11 +1,11 @@
 {
-    "window": {
-      "width": 2048,
-      "height": 1536
-    },
     "rtsp_urls": [
       "rtsp://camera1/stream",
       "rtsp://camera2/stream",
       "rtsp://camera3/stream"
-    ]
+    ],
+    "top_camera_size": [640, 360],  
+    "bottom_camera_size": [1280, 360],  
+    "screen_size": [1280, 800] 
   }
+  
