@@ -1,8 +1,8 @@
 {
     "rtsp_urls": [
-      "rtsp://camera1/stream",
-      "rtsp://camera2/stream",
-      "rtsp://camera3/stream"
+      "rtsp://169.254.48.32:554/picstream",
+      "rtsp://169.254.48.32:554/picstream",
+      "rtsp://169.254.48.32:554/picstream"
     ],
     "top_camera_size": [640, 360],  
     "bottom_camera_size": [1280, 360],  
